@@ -1,5 +1,7 @@
 @ECHO OFF
 
-CHDIR cat\src\
-DEL cat.exe cat.nativecodeanalysis.xml cat.obj cat.asm
-CHDIR ..\..\
+FOR %%i IN (cat wc) DO (
+    CHDIR %%i\src
+    DEL %%i.exe %%i.nativecodeanalysis.xml %%i.obj %%i.asm
+    CHDIR ..\..\
+)
