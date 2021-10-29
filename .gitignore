@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Assembler Output
+*.asm
+
 # Object files
 *.o
 *.ko
@@ -41,6 +44,7 @@
 *.su
 *.idb
 *.pdb
+*.nativecodeanalysis.xml
 
 # Kernel Module Compile Results
 *.mod*
