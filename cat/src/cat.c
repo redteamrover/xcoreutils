@@ -4,52 +4,7 @@
  *
  */
 
-#ifndef _CRT_SECURE_NO_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
-#include <assert.h>
-#include <errno.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE (512)
-#endif
-
-static char error_msg_buffer[BUFFER_SIZE] = { 0 };
-
-FILE* open_file(_In_ const char* filename) {
-    _set_errno(0);
-
-    FILE* file = fopen(filename, "r");
-
-    if (file == NULL) {
-        _strerror_s(error_msg_buffer, BUFFER_SIZE, NULL);
-
-        switch (errno) {
-            default: {
-                fprintf(stderr, "Could not open file: %s (%s)\n", filename, error_msg_buffer);
-                exit(EXIT_FAILURE);
-            } break;
-        }        
-    }
-
-    return file;
-}
-
-void close_file(FILE** file) {
-    if (file == NULL) {
-        return;
-    }
-
-    fclose(*file);
-
-    *file = NULL;
-}
+#include "xcoreutils.h"
 
 int main(int argc, char *argv[])
 {
