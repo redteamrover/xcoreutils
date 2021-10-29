@@ -1,4 +1,4 @@
 project(cat VERSION 1.0.0)
 add_executable(cat cat.c)
-target_include_directories(cat PUBLIC "${PROJECT_SOURCE_DIR}/../../lib/include/")
-target_link_libraries(cat PUBLIC "${PROJECT_SOURCE_DIR}/file.lib")
+target_compile_features(cat PUBLIC c_std_11)
+target_link_libraries(cat PUBLIC xcorelib)
