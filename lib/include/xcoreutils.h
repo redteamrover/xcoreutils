@@ -6,6 +6,17 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#ifndef UNICODE
+#define UNICODE
+#endif
+
+#ifndef _UNICODE
+#define _UNICODE
+#endif
+
+#include <Windows.h>
+#include <tchar.h>
+
 #include <assert.h>
 #include <errno.h>
 #include <stddef.h>
@@ -29,7 +40,7 @@
 #endif
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE (512)
+#define BUFFER_SIZE (8096)
 #endif
 
 #include "xcoreutils/file.h"

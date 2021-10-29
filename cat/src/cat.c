@@ -6,20 +6,30 @@
 
 #include "xcoreutils.h"
 
-int main(int argc, char *argv[])
+int _tmain(int argc, LPTSTR argv[])
 {
+    /** TODO: Implement the ability to read from stdin */
+    if (argc == 1) {
+        return EXIT_FAILURE;
+    }
+
+    static CHAR read_buffer[BUFFER_SIZE] = { 0 };
+
     do {
-        FILE* file = (argc == 1) ? stdin : open_file(*++argv);
+        HANDLE input_file = CreateFile(*++argv, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
-        int c = 0;
-
-        while ((c = fgetc(file)) != EOF) {
-            fputc(c, stdout);
+        if (input_file == INVALID_HANDLE_VALUE) {
+            fprintf(stderr, "%x\n", GetLastError());
+            return EXIT_FAILURE;
         }
 
-        fputc('\n', stdout);
+        DWORD bytes_read = 0;
 
-        close_file(&file);
+        while (ReadFile(input_file, read_buffer, BUFFER_SIZE, &bytes_read, NULL) && (bytes_read)) {
+            fprintf(stdout, "%s", read_buffer);
+        }
+
+        CloseHandle(input_file);
     } while (*(argv + 1));
 
     return EXIT_SUCCESS;
